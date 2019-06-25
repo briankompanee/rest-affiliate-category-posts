@@ -45,5 +45,15 @@ class WidgetDisplay
             $args['widget_id'] = $this->id;
         }
 
+        //Create Cache Items
+        $cache_time = ( ! empty( $instance['cache_time'] ) ) ? absint( $instance['cache_time'] ) : 5;
+        $cache_key = md5( __CLASS__ . implode( $args ) );
+        if( 0 < $cache_time && false != ($cached = get_transient( $cache_key ) ) ){
+            echo $cached;
+            return;
+        }
+
+        //Hold object Values
+        ob_start();
     }
 }
