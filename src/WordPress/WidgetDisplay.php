@@ -76,5 +76,12 @@ class WidgetDisplay
                 }
             }
         }
+
+        //Print the cached output if enabled otherwise print the fresh posts
+        $output = ob_get_clean();
+        if( 0 < $cache_time ){
+            set_transient( $cache_key, $output, $cache_time );
+        }
+        echo $output;
     }
 }
