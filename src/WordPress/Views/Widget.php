@@ -8,3 +8,12 @@
  * with this source code in the file LICENSE.
  */
 ?>
+<ul class="bb-rest-affiliate-category-posts-list">
+  <?php foreach( $posts as $post ) : ?>
+    <li>
+      <a href="<?php echo esc_url( $post->link ) ?>">
+          <?php echo esc_html( $post->title->rendered ); ?>
+      </a>
+    </li>
+  <?php endforeach; ?>
+</ul>
