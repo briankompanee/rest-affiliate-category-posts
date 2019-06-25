@@ -33,6 +33,14 @@ class WidgetAdmin extends Widget
      */
     public function form($instance)
     {   
+
+        //Get values from widget form or set default
+        $title      = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+        $category   = isset( $instance['category'] ) ? absint( $instance['category'] ) : 1;
+        $number     = isset( $instance['number'] ) ? absint( $instance['number'] ) : 5;
+        $cache_time = isset( $instance['cache_time'] ) ? absint( $instance['cache_time'] ) : 1;
+        $url        = isset ($instance['url'] ) ? esc_url( $instance['url'] ) : '';
+
         include plugin_dir_path(__FILE__).'Views/Admin.php';
     }
     
