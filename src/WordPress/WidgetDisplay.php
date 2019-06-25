@@ -40,6 +40,10 @@ class WidgetDisplay
      */
     public function show($args, $instance)
     {   
+        //Get Widget ID
+        if ( ! isset( $args['widget_id'] ) ) {
+            $args['widget_id'] = $this->id;
+        }
 
     }
 }
