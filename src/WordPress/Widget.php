@@ -26,7 +26,16 @@ class Widget extends WP_Widget
      */
     public function __construct($widgetSlug)
     {
+        $this->widgetSlug = $widgetSlug;
 
+        parent::__construct(
+            $this->getWidgetSlug(),
+            __('Affiliate Category Posts', $this->getWidgetSlug()),
+            [
+                'classname' => $this->getWidgetSlug().'-class',
+                'description' => __('Get affiliate posts with REST API by category and display them in a widget', $this->getWidgetSlug()),
+            ]
+        );
     }
 
     /**
