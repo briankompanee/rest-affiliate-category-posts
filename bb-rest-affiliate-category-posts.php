@@ -32,6 +32,8 @@ use WordPressWidgetBoilerplate\Utilities\Registry;
 use WordPressWidgetBoilerplate\Plugin;
 use WordPressWidgetBoilerplate\Subscriber\WidgetSubscriber;
 use WordPressWidgetBoilerplate\Subscriber\DeleteWidgetCacheSubscriber;
+use WordPressWidgetBoilerplate\Subscriber\PublicStyleAssetSubscriber;
+use WordPressWidgetBoilerplate\Subscriber\AdminStyleAssetSubscriber;
 
 // Prevent this file from being called directly.
 defined('WPINC') || die;
@@ -50,6 +52,12 @@ $registry->add('deleteWidgetCacheSubscriber', new DeleteWidgetCacheSubscriber('f
 
 // Add the Widget base class to the Registry.
 $registry->add('widgetSubscriber', new WidgetSubscriber('widgets_init'));
+
+// Add the Widget CSS
+$registry->add('PublicStyleAssetSubscriber', new PublicStyleAssetSubscriber('widgets_init'));
+
+// Add the Admin Form CSS
+$registry->add('AdminStyleAssetSubscriber', new AdminStyleAssetSubscriber('widgets_admin_page'));
 
 // Start the machine.
 (new Plugin($registry))->start();
