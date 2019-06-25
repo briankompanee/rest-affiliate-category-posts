@@ -41,7 +41,16 @@ class WidgetAdmin extends Widget
         $cache_time = isset( $instance['cache_time'] ) ? absint( $instance['cache_time'] ) : 1;
         $url        = isset ($instance['url'] ) ? esc_url( $instance['url'] ) : '';
 
+        //Get all categories from REST URL
+        $categories = '';
+        if (isset ($instance['url'] )) {
+            $url_cat = trailingslashit( $instance[ 'url' ] ) . 'wp-json/wp/v2/categories';
+            $r_cat = wp_safe_remote_get( $url_cat );
+            if( ! is_wp_error( $r_cat ) ){
+                $categories = json_decode( wp_remote_retrieve_body( $r_cat ) );
+            }
+        }
+
         include plugin_dir_path(__FILE__).'Views/Admin.php';
     }
-    
 }
