@@ -55,5 +55,26 @@ class WidgetDisplay
 
         //Hold object Values
         ob_start();
+
+        //Set Variables for options
+        $title    = ( ! empty( $instance['title'] ) ) ? $instance['title'] : __( 'Recent Posts', 'josh-remote-recent-posts' );
+        $number   = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 5;
+        $category = ( ! empty( $instance['category'] ) ) ? absint( $instance['category'] ) : 1;
+
+        //Get the selcted number of posts in the selected category using the REST API
+        $url = trailingslashit( $instance[ 'url' ] ) . 'wp-json/wp/v2/posts?categories=' . $category;
+        $url = add_query_arg( 'per_page', $number, $url );
+        $r = wp_safe_remote_get( $url );
+        if( ! is_wp_error( $r ) ){
+            $posts = json_decode( wp_remote_retrieve_body( $r ) );
+            if( ! empty( $posts ) ){
+                echo $args['before_widget'];
+                if ( $title ) {
+                    echo $args[ 'before_title' ] . $title . $args[ 'after_title' ];
+                    include plugin_dir_path(__FILE__).'Views/Widget.php';
+                    echo $args['after_widget'];
+                }
+            }
+        }
     }
 }
